@@ -8,7 +8,7 @@ function MyApp({Component, pageProps}: AppProps) {
             <title>Ar3share</title>
             <meta title='description' content='share files instantly with Ar3share'/>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
             <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
         </Head>
         <Component {...pageProps} />

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from "../styles/Home.module.css";
 
-export default function fileDownloadPage<NextPage>() {
+export default function FileDownloadPage() {
     const [loading, setLoading] = useState(true);
     const [fileData, setFileData] = useState({
         fileName: "",
@@ -15,11 +15,11 @@ export default function fileDownloadPage<NextPage>() {
     useEffect(() => {
         if (fileID) {
             try {
-                fetch(`http://localhost:5000/getFile/${fileID}`).then(res => res.json()).then(data => {
+                fetch(`https://ar3share.herokuapp.com/getFile/${fileID}`).then(res => res.json()).then(data => {
                     setFileData(data)
                     setLoading(false)
                 })
-            } catch (err) {
+            } catch (err:any) {
                 alert(err.message)
             }
         }
@@ -33,7 +33,7 @@ export default function fileDownloadPage<NextPage>() {
         </p>
 
         {!loading && fileData.fileLocation && <div className={styles.downloadSection}>
-            <a target="_blank" href={fileData.fileLocation} download={fileData.fileName}>
+            <a target="_blank" rel="noreferrer" href={fileData.fileLocation} download={fileData.fileName}>
                 <img src="https://img.icons8.com/windows/2x/download.png" alt="download_icon"/>{fileData.fileName}
             </a>
         </div>}

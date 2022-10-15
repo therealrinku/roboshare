@@ -9,14 +9,14 @@ export default function Home<NextPage>() {
     const [uploading,setUploading]=useState(false);
     const router = useRouter()
 
-    const onDrop = useCallback(acceptedFiles => {
+    const onDrop = useCallback((acceptedFiles:any) => {
         const file = acceptedFiles[0];
         const data = new FormData()
         data.append("file", file)
 
         try {
             setUploading(true)
-            fetch("http://localhost:5000/uploadFile", {
+            fetch("https://ar3share.herokuapp.com/uploadFile", {
                 method: "POST",
                 body: data,
             })
@@ -25,7 +25,7 @@ export default function Home<NextPage>() {
                 setUploadedFileId(data.fileId);
                 setUploading(false);
             });
-        } catch (err) {
+        } catch (err:any) {
             alert(err.message)
             setUploading(false)
         }
