@@ -11,8 +11,8 @@ router.get("/getFile/:fileId", (req, response) => {
     const { fileId } = req.params;
 
     try {
-        const query = `SELECT file_name,file_location from files WHERE file_id = '${fileId}'`;
-        db.query(query).then(res => response.status(200).json({success: true,fileName:res.rows[0].file_name, fileLocation: res.rows[0]?.file_location}))
+        const query = `SELECT file_name,file_location from files WHERE file_id::text = '${fileId}'::text`;
+        db.query(query).then(res => response.status(200).json({success: true,fileName:res.rows[0]?.file_name, fileLocation: res.rows[0]?.file_location}))
     } catch (err) {
         response.status(200).json({success: false, message: err.message})
     }
@@ -27,7 +27,7 @@ router.post("/uploadFile", upload.single("file"), ({file}, response) => {
                 const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                 console.log(progress, "progress")
             }, (error) => {
-                alert(error);
+                console.log("error");
             }, () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const query = `INSERT INTO files(file_name,file_location) VALUES ('${file.originalname}','${downloadURL}') returning file_id`

@@ -1,4 +1,63 @@
 .container {
-  padding: 0 2rem;
   text-align:center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-radius:5px;
+  background: rgba(0,0,0,0.05);
+  padding:30px 3rem;
+  font-size:15px;
+  min-width:300px;
+}
+
+.downloadSection{
+    margin-top:25px;
+}
+
+.downloadSection a:hover{
+    text-decoration: underline;
+}
+
+.container img{
+    width:18px;
+    height:18px;
+    margin-bottom:-5px;
+    margin-right:10px;
+}
+
+.dropzone{
+    border:dotted 1px black;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:150px;
+}
+
+.dropzone span{
+    background: red;
+    color:white;
+    padding:10px;
+    border-radius:5px;
+}
+
+.dropzone span:hover{
+    cursor: pointer;
+    background: coral;
+}
+
+.uploadedView button{
+    border:none;
+    background: inherit;
+    text-decoration: underline;
+}
+
+.uploadedView button:last-child{
+    border:solid 1px black;
+    border-radius:5px;
+    text-decoration: none;
+}
+
+.uploadedView button:last-child:hover{
+    background: white;
+    color:black;
 }

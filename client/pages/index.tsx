@@ -1,51 +1,66 @@
 import type {NextPage} from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {useState} from "react";
-import Link from "next/link";
+import {useState, useCallback} from "react";
+import {useRouter} from "next/router";
+import {useDropzone} from 'react-dropzone'
 
-const Home: NextPage = () => {
-    const [files, setFiles] = useState([]);
+export default function Home<NextPage>() {
     const [uploadedFileId, setUploadedFileId] = useState('');
+    const [uploading,setUploading]=useState(false);
+    const router = useRouter()
 
-    const uploadFile = (e) => {
-        e.preventDefault();
+    const onDrop = useCallback(acceptedFiles => {
+        const file = acceptedFiles[0];
+        const data = new FormData()
+        data.append("file", file)
 
-        if (files[0]) {
-            const data = new FormData();
-            data.append('file', files[0])
-
+        try {
+            setUploading(true)
             fetch("http://localhost:5000/uploadFile", {
                 method: "POST",
                 body: data,
             })
                 .then((res) => res.json())
-                .then((data: { fileId: string }) => setUploadedFileId(data.fileId));
+            .then((data: { fileId: string }) => {
+                setUploadedFileId(data.fileId);
+                setUploading(false);
+            });
+        } catch (err) {
+            alert(err.message)
+            setUploading(false)
         }
+
+    }, [])
+
+    const {getRootProps, getInputProps} = useDropzone({onDrop})
+
+    const copyLinkToClipboard = () => {
+        navigator.clipboard.writeText(window.location.origin + `/${uploadedFileId}`);
+        alert("Copied file url!")
     }
 
     return (
         <div className={styles.container}>
             <h4>Arcshare</h4>
-            <p>Upload files and share anywhere instantly</p>
+            <p>Upload files and share anywhere instantly.</p>
 
-            <form encType="multipart/form-data" onSubmit={uploadFile}>
-                <input type="file" onChange={(e: any) => setFiles(e.target.files)}/>
-                <button type="submit">Upload</button>
-            </form>
-
-            {uploadedFileId && <>
-                <p>Your file is uploaded</p>
-                <p>You can access it with this link:<Link href={`/${uploadedFileId}`}>localhost:3000/{uploadedFileId}</Link>
-                </p>
-            </>
+            {!uploadedFileId && !uploading && <div {...getRootProps()} className={styles.dropzone}>
+                <input {...getInputProps()} />
+                <span>Select File</span>
+                <p>Or drag file here</p>
+            </div>
             }
 
-            <br/>
+            {uploading && <p>Uploading....</p>}
 
+            {uploadedFileId && <div className={styles.uploadedView}>
+                <p style={{color:"green"}}>Hooray! Your file is uploaded.</p>
+                <p>You can share it with this link below.</p>
+                <button onClick={() => router.push(`/${uploadedFileId}`)}>localhost:3000/{uploadedFileId}</button>
+                <button onClick={copyLinkToClipboard}>Copy</button>
+
+            </div>
+            }
         </div>
     )
 }
-
-export default Home
