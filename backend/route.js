@@ -7,6 +7,17 @@ const db = require("./db");
 
 const upload = multer({dest: "uploads/"})
 
+router.get("/getFile/:fileId", (req, response) => {
+    const { fileId } = req.params;
+
+    try {
+        const query = `SELECT file_name,file_location from files WHERE file_id = '${fileId}'`;
+        db.query(query).then(res => response.status(200).json({success: true,fileName:res.rows[0].file_name, fileLocation: res.rows[0]?.file_location}))
+    } catch (err) {
+        response.status(200).json({success: false, message: err.message})
+    }
+})
+
 router.post("/uploadFile", upload.single("file"), ({file}, response) => {
     try {
         const storageRef = ref(storage, `files/${file.originalname}`);
@@ -19,7 +30,7 @@ router.post("/uploadFile", upload.single("file"), ({file}, response) => {
                 alert(error);
             }, () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    const query = `INSERT INTO files(file_location) VALUES ('${downloadURL}') returning file_id`
+                    const query = `INSERT INTO files(file_name,file_location) VALUES ('${file.originalname}','${downloadURL}') returning file_id`
                     db.query(query).then(res => response.status(200).json({success: true, fileId: res.rows[0]?.file_id}))
                 });
             }

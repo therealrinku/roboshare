@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {useState} from "react";
+import Link from "next/link";
 
 const Home: NextPage = () => {
     const [files, setFiles] = useState([]);
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
 
             {uploadedFileId && <>
                 <p>Your file is uploaded</p>
-                <p>You can access it with this link:<a href={`/${uploadedFileId}`}>localhost:3000/{uploadedFileId}</a>
+                <p>You can access it with this link:<Link href={`/${uploadedFileId}`}>localhost:3000/{uploadedFileId}</Link>
                 </p>
             </>
             }
