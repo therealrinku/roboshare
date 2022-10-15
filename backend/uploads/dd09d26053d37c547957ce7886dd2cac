@@ -1,0 +1,21 @@
+import https from "https";
+
+const apiKey = "20587e644576e50c83f2cc3b2a5188c3c171b4ee1f5e3d9e9a308138bd1dc399";
+
+const apiConfig = {
+  host: `min-api.cryptocompare.com`,
+  path: `/data/pricemulti?fsyms=BTC,ETH,XRP&tsyms=USD&apiKey=${apiKey}`,
+};
+
+export default function getExchangeRate() {
+  let data = "";
+
+  return new Promise((resolve, reject) => {
+    https
+      .get(apiConfig, (res) => {
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
+  });
+}
