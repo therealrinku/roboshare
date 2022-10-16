@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 export default function FileDownloadPage() {
     const [loading, setLoading] = useState(true);

@@ -35,7 +35,7 @@ export default function Home<NextPage>() {
     const {getRootProps, getInputProps} = useDropzone({onDrop})
 
     const copyLinkToClipboard = () => {
-        navigator.clipboard.writeText(window.location.origin + `/${uploadedFileId}`);
+        navigator.clipboard.writeText(window.location.origin + `/file/${uploadedFileId}`);
         alert("Copied file url!")
     }
 
@@ -56,7 +56,7 @@ export default function Home<NextPage>() {
             {uploadedFileId && <div className={styles.uploadedView}>
                 <p style={{color:"green"}}>Hooray! Your file is uploaded.</p>
                 <p>You can share it with this link below.</p>
-                <button onClick={() => router.push(`/${uploadedFileId}`)}>localhost:3000/{uploadedFileId}</button>
+                <button onClick={() => router.push(`/file/${uploadedFileId}`)}>{window.origin}/file/{uploadedFileId}</button>
                 <button onClick={copyLinkToClipboard}>Copy</button>
 
             </div>
