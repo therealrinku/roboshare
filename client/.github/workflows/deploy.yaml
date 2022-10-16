@@ -12,15 +12,13 @@ jobs:
         node-version: "16.x"
         - name: Install dependencies
         run: npm install
-        working-directory: client
         - name: Build the code
         run: npm run build
-        working-directory: client
         - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
           env:
-            PROJECT_PATH: ./client
+            PROJECT_PATH: ./out
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
             - run: echo succesfully deployed to the firebase lmao
