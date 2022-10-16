@@ -24,4 +24,3 @@ jobs:
                         PROJECT_PATH: ./client
                         FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
                         - run: echo succesfully deployed to the firebase lmao
-                        
