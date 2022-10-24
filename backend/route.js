@@ -27,7 +27,7 @@ router.post("/uploadFile", upload.single("file"), ({file}, response) => {
                 const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                 console.log(progress, "progress")
             }, (error) => {
-                console.log("error");
+                console.log(error,"something went fishy.");
             }, () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const query = `INSERT INTO files(file_name,file_id,file_location) VALUES ('${file.originalname}','${uniqid()}','${downloadURL}') returning file_id`
