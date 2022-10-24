@@ -1,8 +1,10 @@
 import type {NextPage} from 'next'
 import styles from '../styles/Home.module.css'
-import {useState, useCallback} from "react";
+import {useState, useCallback, useEffect} from "react";
 import {useRouter} from "next/router";
+import {AiOutlineFileAdd} from "react-icons/ai";
 import {useDropzone} from 'react-dropzone'
+import Loader from "../components/Loader";
 
 export default function Home<NextPage>() {
     const [uploadedFileId, setUploadedFileId] = useState('');
@@ -42,16 +44,16 @@ export default function Home<NextPage>() {
     return (
         <div className={styles.container}>
             <h4>Arcshare</h4>
-            <p>Upload files and share anywhere instantly.</p>
+            <p>Upload and share files anywhere instantly.</p>
 
             {!uploadedFileId && !uploading && <div {...getRootProps()} className={styles.dropzone}>
+                <AiOutlineFileAdd size={50  }/>
                 <input {...getInputProps()} />
-                <span>Select File</span>
-                <p>Or drag file here</p>
+                <span>Click here to select file or simply drop file</span>
             </div>
             }
 
-            {uploading && <p>Uploading....</p>}
+            {uploading && <Loader/>}
 
             {uploadedFileId && <div className={styles.uploadedView}>
                 <p style={{color:"green"}}>Hooray! Your file is uploaded.</p>

@@ -1,48 +1,71 @@
 .container {
   text-align:center;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  border-radius:5px;
-  background: rgba(0,0,0,0.05);
-  padding:30px 3rem;
+  height:100vh;
+  background:whitesmoke;
+  padding:30px 1rem;
   font-size:15px;
-  min-width:300px;
+  width:100vw;
+  max-width:600px;
+}
+
+.container h4{
+    color:coral;
+    font-size:25px;
+}
+
+.container h4 + p{
+    font-style:italic;
+    font-size:15px;
+    margin-top:-15px;
+    margin-bottom:20px;
 }
 
 .downloadSection{
     margin-top:25px;
+    border:dotted 0.5px black;
+    border-radius:8px;
+    padding:10px 0;
+}
+
+.downloadSection a{
+
 }
 
 .downloadSection a:hover{
-    text-decoration: underline;
+    color:red;
+    text-decoration:underline;
 }
 
 .container img{
-    width:18px;
-    height:18px;
+    width:20px;
+    height:20px;
     margin-bottom:-5px;
     margin-right:10px;
 }
 
 .dropzone{
-    border:dotted 1px black;
-    padding:15px;
+    border:dotted 0.5px black;
+    border-radius:8px;
+    padding:10px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    height:150px;
+    height:200px;
 }
 
 .dropzone span{
-    background: red;
-    color:white;
-    padding:10px;
+    margin-top:25px;
+    font-size:13px;
+    color:gray;
+    padding:5px 10px;
     border-radius:5px;
 }
 
-.dropzone span:hover{
-    cursor: pointer;
-    background: coral;
+.uploadedView{
+    border:dotted 0.5px black;
+    border-radius:8px;
+    padding:2px 0 12px 0;
 }
 
 .uploadedView button{
@@ -58,6 +81,5 @@
 }
 
 .uploadedView button:last-child:hover{
-    background: white;
-    color:black;
+    border:solid 1px coral;
 }
