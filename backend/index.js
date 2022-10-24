@@ -19,5 +19,5 @@ app.use("", route);
 const port = process.env.PORT || 5000
 
 server.listen(port, () => {
-  console.log("i am listening");
+  console.log(`i am listening at ${port}`);
 });

@@ -4,7 +4,7 @@ const multer = require("multer");
 const {readFileSync} = require("node:fs");
 const {ref, getDownloadURL, uploadBytesResumable} = require("firebase/storage")
 const db = require("./db");
-
+const uniqid = require("uniqid");
 const upload = multer({dest: "uploads/"})
 
 router.get("/getFile/:fileId", (req, response) => {
@@ -30,7 +30,7 @@ router.post("/uploadFile", upload.single("file"), ({file}, response) => {
                 console.log("error");
             }, () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    const query = `INSERT INTO files(file_name,file_location) VALUES ('${file.originalname}','${downloadURL}') returning file_id`
+                    const query = `INSERT INTO files(file_name,file_id,file_location) VALUES ('${file.originalname}','${uniqid()}','${downloadURL}') returning file_id`
                     db.query(query).then(res => response.status(200).json({success: true, fileId: res.rows[0]?.file_id}))
                 });
             }
