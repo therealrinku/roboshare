@@ -14,7 +14,7 @@ export default function FileDownloadPage({ fileData }: Props) {
       <Link href="/">
         <a className={styles.homeLink}>Arcshare</a>
       </Link>
-      <div>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</div>
+      <p>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</p>
 
       {fileData.fileLocation && (
         <div className={styles.downloadSection}>

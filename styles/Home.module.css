@@ -14,7 +14,7 @@
   font-weight: bold;
 }
 
-.homeLink + p {
+.homeLink > p {
   font-style: italic;
   font-size: 15px;
   margin-bottom: 20px;
@@ -78,4 +78,9 @@
 
 .uploadedView button:last-child:hover {
   border: solid 1px coral;
+}
+
+.underline {
+  text-decoration: underline;
+  margin-right: 5px;
 }

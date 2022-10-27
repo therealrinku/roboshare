@@ -92,10 +92,12 @@ export default function Home<NextPage>() {
       {uploadedFileId && (
         <div className={styles.uploadedView}>
           <p style={{ color: "green" }}>Hooray! Your file is uploaded.</p>
-          <p>You can share it with this link below.</p>
-          <button onClick={() => router.push(`/file/${uploadedFileId}`)}>
-            {window.origin}/file/{uploadedFileId}
-          </button>
+          <p>You can share it with the link below.</p>
+          <Link href={`/file/${uploadedFileId}`}>
+            <a className={styles.underline}>
+              {window.origin}/file/{uploadedFileId}
+            </a>
+          </Link>
           <button onClick={copyLinkToClipboard}>Copy</button>
         </div>
       )}
