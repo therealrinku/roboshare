@@ -1,85 +1,81 @@
 .container {
-  text-align:center;
-  height:100vh;
-  background:whitesmoke;
-  padding:30px 1rem;
-  font-size:15px;
-  width:100vw;
-  max-width:600px;
+  text-align: center;
+  height: 100vh;
+  background: whitesmoke;
+  padding: 30px 1rem;
+  font-size: 15px;
+  width: 100vw;
+  max-width: 600px;
 }
 
-.container h4{
-    color:coral;
-    font-size:25px;
+.homeLink {
+  color: coral;
+  font-size: 25px;
+  font-weight: bold;
 }
 
-.container h4 + p{
-    font-style:italic;
-    font-size:15px;
-    margin-top:-15px;
-    margin-bottom:20px;
+.homeLink + p {
+  font-style: italic;
+  font-size: 15px;
+  margin-bottom: 20px;
 }
 
-.downloadSection{
-    margin-top:25px;
-    border:dotted 0.5px black;
-    border-radius:8px;
-    padding:10px 0;
+.downloadSection {
+  margin-top: 25px;
+  border: dotted 0.5px black;
+  border-radius: 8px;
+  padding: 10px 0;
 }
 
-.downloadSection a{
-
+.downloadSection a:hover {
+  color: red;
+  text-decoration: underline;
 }
 
-.downloadSection a:hover{
-    color:red;
-    text-decoration:underline;
+.container img {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -5px;
+  margin-right: 10px;
 }
 
-.container img{
-    width:20px;
-    height:20px;
-    margin-bottom:-5px;
-    margin-right:10px;
+.dropzone {
+  border: dotted 0.5px black;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }
 
-.dropzone{
-    border:dotted 0.5px black;
-    border-radius:8px;
-    padding:10px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:200px;
+.dropzone span {
+  margin-top: 25px;
+  font-size: 13px;
+  color: gray;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
-.dropzone span{
-    margin-top:25px;
-    font-size:13px;
-    color:gray;
-    padding:5px 10px;
-    border-radius:5px;
+.uploadedView {
+  border: dotted 0.5px black;
+  border-radius: 8px;
+  padding: 2px 0 12px 0;
 }
 
-.uploadedView{
-    border:dotted 0.5px black;
-    border-radius:8px;
-    padding:2px 0 12px 0;
+.uploadedView button {
+  border: none;
+  background: inherit;
+  text-decoration: underline;
 }
 
-.uploadedView button{
-    border:none;
-    background: inherit;
-    text-decoration: underline;
+.uploadedView button:last-child {
+  border: solid 1px black;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.uploadedView button:last-child{
-    border:solid 1px black;
-    border-radius:5px;
-    text-decoration: none;
-}
-
-.uploadedView button:last-child:hover{
-    border:solid 1px coral;
+.uploadedView button:last-child:hover {
+  border: solid 1px coral;
 }

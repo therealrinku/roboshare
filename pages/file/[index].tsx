@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 
 interface Props {
@@ -10,7 +11,9 @@ interface Props {
 export default function FileDownloadPage({ fileData }: Props) {
   return (
     <div className={styles.container}>
-      <h4>Arcshare</h4>
+      <Link href="/">
+        <a className={styles.homeLink}>Arcshare</a>
+      </Link>
       <div>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</div>
 
       {fileData.fileLocation && (
