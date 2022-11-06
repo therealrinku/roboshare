@@ -21,7 +21,7 @@ export default function Home<NextPage>() {
 
     try {
       setUploading(true);
-      const storageRef = ref(storage, `files/${file.name}`);
+      const storageRef = ref(storage, `files/${file.name.replaceAll("'", "")}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -36,7 +36,7 @@ export default function Home<NextPage>() {
             const url = process.env.NODE_ENV !== "production" ? process.env.localUrl : process.env.productionUrl;
             const data = {
               downloadUrl: downloadURL,
-              fileName: file.name,
+              fileName: file.name.replaceAll("'", ""),
             };
 
             fetch(`${url}/api/addFileToDb`, {
