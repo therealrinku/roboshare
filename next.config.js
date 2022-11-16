@@ -12,6 +12,7 @@ const nextConfig = {
     measurementId: process.env.measurmentId,
     localUrl: process.env.localUrl,
     productionUrl: process.env.productionUrl,
+    adminPassword: process.env.adminPassword,
   },
   async headers() {
     return [

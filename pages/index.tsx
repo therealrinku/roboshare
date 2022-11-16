@@ -1,12 +1,10 @@
-import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useDropzone } from "react-dropzone";
 import Loader from "../components/Loader";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import uniqid from "uniqid";
 import storage from "../firebase";
 import Link from "next/link";
 
