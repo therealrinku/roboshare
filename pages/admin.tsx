@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { FiLoader } from "react-icons/fi";
 import { AiFillLock } from "react-icons/ai";
 import styles from "../styles/Admin.module.css";
 import { ref, listAll, getDownloadURL, deleteObject } from "firebase/storage";
 import storage from "../firebase";
-console.log("lol");
 const url = process.env.NODE_ENV !== "production" ? process.env.localUrl : process.env.productionUrl;
 
 export default function AdminPage() {
@@ -83,7 +83,24 @@ export default function AdminPage() {
 
       {isAuthenticated && (
         <div>
-          <h5 style={{ marginBottom: "20px" }}>Admin Panel</h5>
+          <h5 style={{ marginBottom: "10px" }}>Admin Panel</h5>
+          <button
+            onClick={getFiles}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              border: "none",
+              marginLeft: "-10px",
+              background: "inherit",
+              color: "green",
+              fontSize: "16px",
+              marginTop: "-20px",
+            }}
+          >
+            <FiLoader />
+            <p>Reload</p>
+          </button>
           {files.map((file: any, i: number) => {
             return (
               <div style={{ display: "flex", alignItems: "center", fontSize: "15px" }} key={i}>
