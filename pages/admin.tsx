@@ -89,7 +89,7 @@ export default function AdminPage() {
               <div style={{ display: "flex", alignItems: "center", fontSize: "15px" }} key={i}>
                 <span>#{i + 1} - </span>
                 <p style={{ marginLeft: "10px" }}>{file.fileName}</p>
-                <a href={file.url} target="_blank" style={{ color: "Blue", marginLeft: "10px" }}>
+                <a rel="noreferrer" href={file.url} target="_blank" style={{ color: "Blue", marginLeft: "10px" }}>
                   Link
                 </a>
                 <button
