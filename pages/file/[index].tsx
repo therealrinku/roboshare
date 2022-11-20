@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { IoDownloadOutline } from "react-icons/io5";
+import Nav from "../../components/Nav";
 import styles from "../../styles/Home.module.css";
 
 interface Props {
@@ -11,19 +12,18 @@ interface Props {
 export default function FileDownloadPage({ fileData }: Props) {
   return (
     <div className={styles.container}>
-      <Link href="/">
-        <a className={styles.homeLink}>Arcshare</a>
-      </Link>
-      <p>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</p>
+      <Nav />
 
-      {fileData.fileLocation && (
-        <div className={styles.downloadSection}>
+      <div className={styles.downloadSection}>
+        <p>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</p>
+
+        {fileData.fileLocation && (
           <a target="_blank" rel="noreferrer" href={fileData.fileLocation} download={fileData.fileName}>
-            <img src="https://img.icons8.com/windows/2x/download.png" alt="download_icon" />
-            {fileData.fileName}
+            <IoDownloadOutline size={20} />
+            <p>{fileData.fileName}</p>
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

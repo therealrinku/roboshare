@@ -1,11 +1,17 @@
 .container {
   text-align: center;
   height: 100vh;
-  background: whitesmoke;
+  background: black;
   padding: 30px 1rem;
   font-size: 15px;
   width: 100vw;
-  max-width: 600px;
+  /* max-width: 600px; */
+  /* margin-top: 50px; */
+}
+
+.container .file-icon {
+  width: 100px;
+  height: 100px;
 }
 
 .homeLink {
@@ -21,14 +27,30 @@
 }
 
 .downloadSection {
-  margin-top: 25px;
-  border: dotted 0.5px black;
+  border: dotted 0.5px white;
+  width: 100vw;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 100px;
   border-radius: 8px;
   padding: 10px 0;
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.downloadSection a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .downloadSection a:hover {
-  color: red;
+  color: white;
   text-decoration: underline;
 }
 
@@ -40,9 +62,13 @@
 }
 
 .dropzone {
-  border: dotted 0.5px black;
+  border: dotted 0.5px white;
   border-radius: 8px;
   padding: 10px;
+  width: 100vw;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,28 +85,47 @@
 }
 
 .uploadedView {
-  border: dotted 0.5px black;
+  width: 100vw;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 100px;
+  color: white;
+  border: dotted 0.5px white;
   border-radius: 8px;
-  padding: 2px 0 12px 0;
+  padding: 10px 15px;
 }
 
 .uploadedView button {
   border: none;
   background: inherit;
   text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
 }
 
-.uploadedView button:last-child {
-  border: solid 1px black;
+.uploadedView button {
+  border: solid 1px white;
   border-radius: 5px;
   text-decoration: none;
+  color: white;
+  margin-left: 10px;
 }
 
-.uploadedView button:last-child:hover {
+.uploadedView button:hover {
   border: solid 1px coral;
 }
 
 .underline {
   text-decoration: underline;
   margin-right: 5px;
+}
+
+@media (max-width: 700px) {
+  .uploadedView,
+  .dropzone,
+  .downloadSection {
+    width: 95vw;
+  }
 }
