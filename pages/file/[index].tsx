@@ -30,8 +30,7 @@ export default function FileDownloadPage({ fileData }: Props) {
 
 export const getServerSideProps = async (context: any) => {
   const fileId = context.params.index;
-  const url = process.env.NODE_ENV !== "production" ? process.env.localUrl : process.env.productionUrl;
-  const data = await fetch(`${url}/api/getFile/${fileId}`).then((res) => res.json());
+  const data = await fetch(`/api/getFile/${fileId}`).then((res) => res.json());
 
   return {
     props: {

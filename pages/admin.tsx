@@ -4,7 +4,6 @@ import { AiFillLock } from "react-icons/ai";
 import styles from "../styles/Admin.module.css";
 import { ref, listAll, getDownloadURL, deleteObject } from "firebase/storage";
 import storage from "../firebase";
-const url = process.env.NODE_ENV !== "production" ? process.env.localUrl : process.env.productionUrl;
 
 export default function AdminPage() {
   const [password, setPassword] = useState("");
@@ -44,7 +43,7 @@ export default function AdminPage() {
     if (answer) {
       deleteObject(ref(storage, fileLocation))
         .then(() => {
-          fetch(`${url}/api/deleteFile`, {
+          fetch(`/api/deleteFile`, {
             method: "POST",
             body: JSON.stringify({ fileUrl: fileLocation }),
             headers: {

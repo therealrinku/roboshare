@@ -15,7 +15,7 @@ import storage from "../firebase";
 import Link from "next/link";
 import Nav from "../components/Nav";
 
-export default function Home<NextPage>() {
+export default function Home() {
   const [uploadedFileId, setUploadedFileId] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -38,13 +38,12 @@ export default function Home<NextPage>() {
         (error) => console.log(error, "something went fishy."),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            const url = process.env.NODE_ENV !== "production" ? process.env.localUrl : process.env.productionUrl;
             const data = {
               downloadUrl: downloadURL,
               fileName: file.name.replaceAll("'", ""),
             };
 
-            fetch(`${url}/api/addFileToDb`, {
+            fetch(`/api/addFileToDb`, {
               method: "POST",
               body: JSON.stringify(data),
               headers: {
