@@ -1,34 +1,3 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Inter", -apple-system, Oxygen, Ubuntu, Helvetica Neue, sans-serif;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-button,
-input {
-  outline: none;
-  font-family: inherit;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

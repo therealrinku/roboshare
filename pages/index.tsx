@@ -1,4 +1,3 @@
-import styles from "../styles/Home.module.css";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import {
@@ -14,6 +13,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
 import Nav from "../components/Nav";
+import { message, Progress } from "antd";
 
 export default function Home() {
   const [uploadedFileId, setUploadedFileId] = useState("");
@@ -59,7 +59,7 @@ export default function Home() {
         }
       );
     } catch (err: any) {
-      alert(err.message);
+      message.error(err.message);
       setUploading(false);
     }
   }, []);
@@ -68,45 +68,44 @@ export default function Home() {
 
   const copyLinkToClipboard = () => {
     navigator.clipboard.writeText(window.location.origin + `/file/${uploadedFileId}`);
-    alert("Copied file url!");
+    message.success("Copied Url")
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Nav />
 
       {!uploadedFileId && !uploading && (
-        <div {...getRootProps()} className={styles.dropzone}>
-          <IoFolderOpenOutline color="white" size={50} />
+        <div {...getRootProps()} className="flex flex-col min-h-96 items-center  justify-center border-dotted border-2 w-screen max-w-lg mx-auto m-5 p-5 rounded-md">
+          <IoFolderOpenOutline size={40} className="mb-3"/>
           <input {...getInputProps()} />
-          <span>Click here to select file or simply drop file</span>
+          <span className="text-sm flex gap-1"><p className="underline text-blue-500 hover:cursor-pointer">Browse</p> or drop file here</span>
         </div>
       )}
 
-      {uploading && <Loader progress={progress} />}
+      {uploading &&  <Progress className="flex justify-center mt-10" type="circle" percent={progress} />}
 
       {uploadedFileId && (
-        <div className={styles.uploadedView}>
-          <IoHappyOutline color="white" size={50} />
-          <p>
-            Hurray file has been uploaded.
-            <br />
+        <div className="flex flex-col items-center justify-center border-dotted border-2 w-screen max-w-lg mx-auto m-5 p-5 h-full rounded-md">
+          <IoHappyOutline size={50} className="mb-3"/>
+          <p className="text-sm">
+            File has been uploaded.
             You can share it with the link below.
           </p>
           <div>
             <Link href={`/file/${uploadedFileId}`}>
-              <a className={styles.underline}>
-                <IoOpenOutline color="white" size={15} style={{ marginBottom: "-2px", marginRight: "5px" }} />
+              <a className="ml-10 underline hover:text-blue-500 text-md flex items-center gap-2 mt-3" >
+                <IoOpenOutline size={15} />
                 {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
               </a>
             </Link>
 
-            <section style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "20px" }}>
-              <button onClick={copyLinkToClipboard}>
+            <section className="flex items-center gap-3 mt-5 ml-5">
+              <button onClick={copyLinkToClipboard} className="flex items-center gap-2 border border-violet-500 rounded-md py-2 px-3">
                 <IoReaderOutline />
                 Copy link
               </button>
-              <button onClick={() => setUploadedFileId("")}>
+              <button onClick={() => setUploadedFileId("")} className="flex items-center gap-2 border border-violet-500 rounded-md py-2 px-3">
                 <IoArrowUpCircleOutline />
                 Upload another
               </button>

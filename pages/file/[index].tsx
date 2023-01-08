@@ -1,6 +1,5 @@
-import { IoDownloadOutline } from "react-icons/io5";
+import { FiExternalLink } from "react-icons/fi";
 import Nav from "../../components/Nav";
-import styles from "../../styles/Home.module.css";
 
 interface Props {
   fileData: {
@@ -11,16 +10,16 @@ interface Props {
 
 export default function FileDownloadPage({ fileData }: Props) {
   return (
-    <div className={styles.container}>
+    <div >
       <Nav />
 
-      <div className={styles.downloadSection}>
-        <p>{fileData.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</p>
+      <div  className="flex flex-col items-center justify-center border-dotted border-2 w-screen max-w-lg mx-auto m-5 p-5 h-full rounded-md">
+        <p className="text-md">{fileData?.fileLocation ? "Your file is ready!!" : "Ooops! File not found! Make sure url is correct."}</p>
 
-        {fileData.fileLocation && (
-          <a target="_blank" rel="noreferrer" href={fileData.fileLocation} download={fileData.fileName}>
-            <IoDownloadOutline size={20} />
-            <p>{fileData.fileName}</p>
+        {fileData?.fileLocation && (
+          <a className="mt-5 flex items-center gap-3 text-md hover:text-blue-500 hover:cursor-pointer hover:underline" target="_blank" rel="noreferrer" href={fileData?.fileLocation} download={fileData?.fileName}>
+            <FiExternalLink size={18} />
+            <p>{fileData?.fileName} dickhead</p>
           </a>
         )}
       </div>
