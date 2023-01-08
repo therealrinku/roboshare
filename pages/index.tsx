@@ -8,7 +8,6 @@ import {
   IoReaderOutline,
 } from "react-icons/io5";
 import { useDropzone } from "react-dropzone";
-import Loader from "../components/Loader";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
