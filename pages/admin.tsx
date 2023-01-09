@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FiExternalLink, FiLogOut, FiRefreshCw, FiTrash, FiUnlock } from "react-icons/fi";
 import { ref, listAll, getDownloadURL, deleteObject } from "firebase/storage";
 import storage from "../firebase";
-import { message, Skeleton } from "antd";
+import { message, Popconfirm, Skeleton } from "antd";
 
 export default function AdminPage() {
   const [password, setPassword] = useState("");
@@ -41,25 +41,22 @@ export default function AdminPage() {
   }, [isAuthenticated]);
 
   const onDelete = (fileLocation: string) => {
-    const answer = confirm("Are you sure?");
-    if (answer) {
-      deleteObject(ref(storage, fileLocation))
-        .then(() => {
-          fetch(`/api/deleteFile`, {
-            method: "POST",
-            body: JSON.stringify({ fileUrl: fileLocation }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then(() => {
-              message.success("Successfully deleted the file!");
-              getFiles();
-            })
-            .catch((err) => message.error(err.message));
+    deleteObject(ref(storage, fileLocation))
+      .then(() => {
+        fetch(`/api/deleteFile`, {
+          method: "POST",
+          body: JSON.stringify({ fileUrl: fileLocation }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .catch((err) => message.error(err.message));
-    }
+          .then(() => {
+            message.success("Successfully deleted the file!");
+            getFiles();
+          })
+          .catch((err) => message.error(err.message));
+      })
+      .catch((err) => message.error(err.message));
   };
 
   return (
@@ -128,12 +125,17 @@ export default function AdminPage() {
                       >
                         <FiExternalLink />
                       </a>
-                      <button
-                        className="border border-red-500 rounded-md p-2 text-red-500 hover:text-red-700"
-                        onClick={() => onDelete(file.url)}
+                      <Popconfirm
+                        title="Delete the file"
+                        description="Are you sure to delete this file?"
+                        onConfirm={() => onDelete(file.url)}
+                        okText="Yes"
+                        cancelText="No"
                       >
-                        <FiTrash />
-                      </button>
+                        <button className="border border-red-500 rounded-md p-2 text-red-500 hover:text-red-700">
+                          <FiTrash />
+                        </button>
+                      </Popconfirm>
                     </section>
                   </div>
                 );
