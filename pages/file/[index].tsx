@@ -8,8 +8,8 @@ interface Props {
     fileName: string;
     
   };
-  title:any;
-    image:any;
+  title:string;
+  image:string;
 }
 
 export default function FileDownloadPage({ fileData,title,image }: Props) {
