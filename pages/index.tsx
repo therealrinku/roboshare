@@ -111,7 +111,7 @@ export default function Home() {
               </a>
             </Link>
 
-            <section className="flex items-center gap-3 mt-5 ml-5">
+            <section className="flex items-center gap-3 mt-5 mx-auto w-75">
               <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-blue-500">
                 <IoReaderOutline size={18} />
                 Copy link
