@@ -76,7 +76,7 @@ export default function Home() {
         <div {...getRootProps()} className="flex flex-col min-h-60 max-w-screen-lg py-32 items-center  justify-center">
           <IoFolderOpenOutline size={40} className="mb-3" />
           <input {...getInputProps()} />
-          <span className="text-sm flex gap-1 text-lg mt-5">
+          <span className="text-sm flex gap-1 mt-5">
             <p className="text-blue-500 hover:cursor-pointer">Browse</p> or drop file here
           </span>
         </div>
