@@ -10,7 +10,7 @@ import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
-import { message, Progress } from "antd";
+import { Button, message, Progress } from "antd";
 import { FiFile } from "react-icons/fi";
 
 export default function Home() {
@@ -91,7 +91,7 @@ export default function Home() {
             </p>
           )}
           <Progress
-            strokeColor="violet"
+            strokeColor="blue"
             className="w-inherit flex justify-center mt-12"
             type="dashboard"
             percent={progress}
@@ -100,32 +100,30 @@ export default function Home() {
       )}
 
       {uploadedFileId && (
-        <div className="flex flex-col min-h-60 max-w-screen-lg w-5/6 py-32 items-center justify-center border-dotted border-violet-500 border-2 mx-auto m-5 p-5 rounded-md">
+        <div className="flex flex-col min-h-60 py-32 items-center justify-center">
           <IoHappyOutline size={50} className="mb-3" />
           <p className="text-sm">File has been uploaded. You can share it with the link below.</p>
           <div>
             <Link href={`/file/${uploadedFileId}`}>
-              <a className="ml-12 text-blue-500 hover:text-blue-500 text-md flex items-center gap-2 mt-3">
+              <a className=" text-sm ml-12 text-blue-500 hover:text-blue-500 text-md flex items-center gap-2 mt-3">
                 <IoOpenOutline size={15} />
                 {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
               </a>
             </Link>
 
             <section className="flex items-center gap-3 mt-5 ml-5">
-              <button
-                onClick={copyLinkToClipboard}
-                className="flex text-sm items-center gap-2 border border-violet-500 rounded-md py-2 px-3 hover:border-violet-800"
-              >
+              <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-">
                 <IoReaderOutline size={18} />
                 Copy link
-              </button>
-              <button
+              </Button>
+              <Button
+                type="default"
                 onClick={() => setUploadedFileId("")}
-                className="flex text-sm items-center gap-2 border border-violet-500 rounded-md py-2 px-3 hover:border-violet-800"
+                className="flex text-sm items-center gap-2 bg-blue-500"
               >
                 <IoArrowUpCircleOutline size={18} />
                 Upload another
-              </button>
+              </Button>
             </section>
           </div>
         </div>
