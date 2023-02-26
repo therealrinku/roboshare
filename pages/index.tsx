@@ -10,7 +10,6 @@ import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
-import Nav from "../components/Nav";
 import { message, Progress } from "antd";
 import { FiFile } from "react-icons/fi";
 
@@ -73,13 +72,8 @@ export default function Home() {
 
   return (
     <div>
-      <Nav />
-
       {!uploadedFileId && !uploading && (
-        <div
-          {...getRootProps()}
-          className="flex flex-col min-h-60 max-w-screen-lg w-5/6 py-32 items-center  justify-center border-dotted border-2 border-violet-500 w-screen mx-auto m-5 p-5 rounded-md"
-        >
+        <div {...getRootProps()} className="flex flex-col min-h-60 max-w-screen-lg py-32 items-center  justify-center">
           <IoFolderOpenOutline size={40} className="mb-3" />
           <input {...getInputProps()} />
           <span className="text-sm flex gap-1 text-lg mt-5">
@@ -89,7 +83,7 @@ export default function Home() {
       )}
 
       {uploading && (
-        <div className="flex flex-col min-h-60 max-w-screen-lg w-5/6 py-32 items-center  justify-center border-dotted border-2 w-screen mx-auto m-5 p-5 rounded-md">
+        <div className="flex flex-col min-h-60 py-32 items-center  justify-center">
           {selectedFile && (
             <p className="flex gap-2 items-center">
               <FiFile />
@@ -122,14 +116,14 @@ export default function Home() {
                 onClick={copyLinkToClipboard}
                 className="flex text-sm items-center gap-2 border border-violet-500 rounded-md py-2 px-3 hover:border-violet-800"
               >
-                <IoReaderOutline size={18}/>
+                <IoReaderOutline size={18} />
                 Copy link
               </button>
               <button
                 onClick={() => setUploadedFileId("")}
                 className="flex text-sm items-center gap-2 border border-violet-500 rounded-md py-2 px-3 hover:border-violet-800"
               >
-                <IoArrowUpCircleOutline size={18}/>
+                <IoArrowUpCircleOutline size={18} />
                 Upload another
               </button>
             </section>
