@@ -74,10 +74,10 @@ export default function Home() {
     <div>
       {!uploadedFileId && !uploading && (
         <div {...getRootProps()} className="flex flex-col min-h-60 max-w-screen-lg py-32 items-center  justify-center">
-          <IoFolderOpenOutline size={40} className="mb-3" />
+          <IoFolderOpenOutline size={50} className="mb-3" />
           <input {...getInputProps()} />
           <span className="text-sm flex gap-1 mt-5">
-            <p className="text-blue-500 hover:cursor-pointer">Browse</p> or drop file here
+            <p className="text-blue-500 hover:cursor-pointer">Browse</p> or drop file here.
           </span>
         </div>
       )}
@@ -111,7 +111,7 @@ export default function Home() {
               </a>
             </Link>
 
-            <section className="flex items-center gap-3 mt-5 mx-auto w-75">
+            <section className="flex items-center gap-3 mt-5 w-100 ml-5">
               <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-blue-500">
                 <IoReaderOutline size={18} />
                 Copy link

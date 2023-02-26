@@ -35,7 +35,7 @@ export default function FileDownloadPage({ title, image }: Props) {
         <meta property="og:image" content={image} />
       </Head>
 
-      {(!fileUrl || !fileData?.fileLocation) && (
+      {(!fileData?.fileLocation) && (
         <div className="flex flex-col min-h-60 py-32 items-center justify-start">
           <Tooltip title="Type full url like: https://arcshare.vercel.app/file/399dj">
             <Input
@@ -57,7 +57,7 @@ export default function FileDownloadPage({ title, image }: Props) {
         </div>
       )}
 
-      {fileUrl && fileData && (
+      { fileData && (
         <div className="flex flex-col min-h-60 py-32 items-center justify-center">
           {fileData?.fileLocation ? <FiFile size={50} /> : <FiMeh size={50} />}
           <p className="text-sm mt-5">
