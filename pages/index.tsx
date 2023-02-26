@@ -91,7 +91,7 @@ export default function Home() {
             </p>
           )}
           <Progress
-            strokeColor="blue"
+            strokeColor="skyblue"
             className="w-inherit flex justify-center mt-12"
             type="dashboard"
             percent={progress}
@@ -112,14 +112,13 @@ export default function Home() {
             </Link>
 
             <section className="flex items-center gap-3 mt-5 ml-5">
-              <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-">
+              <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-blue-500">
                 <IoReaderOutline size={18} />
                 Copy link
               </Button>
               <Button
-                type="default"
                 onClick={() => setUploadedFileId("")}
-                className="flex text-sm items-center gap-2 bg-blue-500"
+                className="flex text-sm items-center gap-2"
               >
                 <IoArrowUpCircleOutline size={18} />
                 Upload another
