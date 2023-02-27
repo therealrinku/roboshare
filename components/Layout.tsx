@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactChild }) {
           />
 
           <Link passHref href="https://arcshare.vercel.app">
-            <a className="rounded-tr-md py-3 px-3 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-l text-sm font-bold absolute right-0 top-0 flex items-center gap-2">
+            <a className="md:rounded-tr-md py-3 px-3 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-l text-sm font-bold absolute right-0 top-0 flex items-center gap-2">
               {" "}
               <IoPrism /> Arcshare
             </a>
