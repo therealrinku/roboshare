@@ -32,7 +32,7 @@ export default function FileDownloadPage({ fileData }: Props) {
             href={fileData?.fileLocation}
             download={fileData?.fileName}
           >
-            <FiExternalLink size={18} />
+            <FiExternalLink className="mb-3" size={18} />
             <p>{fileData?.fileName}</p>
           </a>
         )}

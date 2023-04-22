@@ -101,20 +101,22 @@ export default function Home() {
       )}
 
       {uploadedFileId && (
-        <div className="flex flex-col min-h-60 py-32 items-center justify-center">
+        <div className="flex flex-col min-h-60 py-10 items-center justify-center">
           <IoHappyOutline size={50} className="mb-3" />
           <p className="text-sm">File has been uploaded. You can share it with the link below.</p>
           <div>
             <Link href={`/file/${uploadedFileId}`}>
-              <a className=" text-sm ml-12 text-blue-500 hover:text-blue-500 text-md flex items-center gap-2 mt-3">
+              <a className="hover:underline text-sm ml-12 text-blue-500 hover:text-blue-500 text-md flex items-center gap-2 mt-3">
                 <IoOpenOutline size={15} />
                 {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
               </a>
             </Link>
 
-            {uploadedFileId && <QRCode value={`https://arcshare.vercel.app/file/${uploadedFileId}`} />}
+            <div className="my-10 flex justify-center">
+              <QRCode value={`https://arcshare.vercel.app/file/${uploadedFileId}`} />
+            </div>
 
-            <section className="flex items-center gap-3 mt-6 w-100 ml-6">
+            <section className="flex justify-center items-center gap-3">
               <Button
                 type="primary"
                 onClick={copyLinkToClipboard}
