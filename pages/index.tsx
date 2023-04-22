@@ -12,6 +12,7 @@ import storage from "../firebase";
 import Link from "next/link";
 import { Button, message, Progress } from "antd";
 import { FiFile } from "react-icons/fi";
+import QRCode from "react-qr-code";
 
 export default function Home() {
   const [uploadedFileId, setUploadedFileId] = useState("");
@@ -111,15 +112,18 @@ export default function Home() {
               </a>
             </Link>
 
-            <section className="flex items-center gap-3 mt-5 w-100 ml-5">
-              <Button type="primary" onClick={copyLinkToClipboard} className="flex text-sm items-center gap-2 bg-blue-500">
+            {uploadedFileId && <QRCode value={`https://arcshare.vercel.app/file/${uploadedFileId}`} />}
+
+            <section className="flex items-center gap-3 mt-6 w-100 ml-6">
+              <Button
+                type="primary"
+                onClick={copyLinkToClipboard}
+                className="flex text-sm items-center gap-2 bg-blue-500"
+              >
                 <IoReaderOutline size={18} />
                 Copy link
               </Button>
-              <Button
-                onClick={() => setUploadedFileId("")}
-                className="flex text-sm items-center gap-2"
-              >
+              <Button onClick={() => setUploadedFileId("")} className="flex text-sm items-center gap-2">
                 <IoArrowUpCircleOutline size={18} />
                 Upload another
               </Button>
