@@ -2,7 +2,6 @@ import { Button } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FiExternalLink, FiFile, FiMeh } from "react-icons/fi";
-import QRCode from "react-qr-code";
 interface Props {
   fileData: {
     fileLocation: string;
@@ -36,12 +35,6 @@ export default function FileDownloadPage({ fileData }: Props) {
             <FiExternalLink className="mb-3" size={18} />
             <p>{fileData?.fileName}</p>
           </a>
-        )}
-
-        {fileData?.fileLocation && (
-          <div className="my-10 flex justify-center">
-            <QRCode value={window ? window.location.toString() : ""} />
-          </div>
         )}
 
         <Button type="primary" className="text-sm mt-5 bg-blue-500" onClick={() => router.push("/download")}>
