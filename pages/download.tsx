@@ -1,4 +1,4 @@
-import { Button, Input, Tooltip } from "antd";
+import { Button, Input } from "antd";
 import Head from "next/head";
 import { useState } from "react";
 import { FiExternalLink, FiFile, FiMeh } from "react-icons/fi";
@@ -24,7 +24,7 @@ export default function FileDownloadPage({ title, image }: Props) {
     setFetching(true);
     const data = await fetch(`${apiUrl}/api/getFile/${fileId}`).then((res) => res.json());
     setFileData(data);
-    setFileUrl("")
+    setFileUrl("");
     setFetching(false);
   };
 
@@ -35,29 +35,27 @@ export default function FileDownloadPage({ title, image }: Props) {
         <meta property="og:image" content={image} />
       </Head>
 
-      {(!fileData?.fileLocation) && (
+      {!fileData?.fileLocation && (
         <div className="flex flex-col min-h-60 py-32 items-center justify-start">
-          <Tooltip title="Type full url like: https://arcshare.vercel.app/file/399dj">
-            <Input
-              value={fileUrl}
-              onChange={(e) => setFileUrl(e.target.value)}
-              className="w-72 mt-0"
-              placeholder="Full File Url"
-            />
-          </Tooltip>
+          <Input
+            value={fileUrl}
+            onChange={(e) => setFileUrl(e.target.value)}
+            className="w-72 mt-0 rounded-none w-72"
+            placeholder="Full File Url"
+          />
           <Button
             loading={fetching}
             onClick={fetchFile}
             disabled={!fileUrl.trim() || fetching}
-            className="bg-blue-500 mt-3 text-sm"
-            type="primary"
+            className="disabled:opacity-75 bg-green-500 mt-3 text-sm rounded-none w-72 hover:bg-green-600 text-white"
+            type="ghost"
           >
             {fetching ? "Retrieving File" : " Retrieve File"}
           </Button>
         </div>
       )}
 
-      { fileData && (
+      {fileData && (
         <div className="flex flex-col min-h-60 py-32 items-center justify-center">
           {fileData?.fileLocation ? <FiFile size={50} /> : <FiMeh size={50} />}
           <p className="text-sm mt-5">
@@ -75,7 +73,11 @@ export default function FileDownloadPage({ title, image }: Props) {
               <p>{fileData?.fileName}</p>
             </a>
           )}
-          <Button type="primary" className="text-sm mt-5 bg-blue-500" onClick={() => setFileData()}>
+          <Button
+            type="ghost"
+            className="text-sm mt-5 bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+            onClick={() => setFileData()}
+          >
             Download Another File
           </Button>
         </div>

@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body, button, a, button span {
+    font-family: 'Inclusive Sans', sans-serif;
+}

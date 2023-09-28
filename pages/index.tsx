@@ -78,13 +78,13 @@ export default function Home() {
           <IoFolderOpenOutline size={50} className="mb-3" />
           <input {...getInputProps()} />
           <span className="text-sm flex gap-1 mt-5">
-            <p className="text-blue-500 hover:cursor-pointer">Browse</p> or drop file here.
+            <p className="text-green-500 hover:cursor-pointer">Browse</p> or drop file here.
           </span>
         </div>
       )}
 
       {uploading && (
-        <div className="flex flex-col min-h-60 py-32 items-center  justify-center">
+        <div className="flex flex-col min-h-60 py-32 items-center justify-center">
           {selectedFile && (
             <p className="flex gap-2 items-center">
               <FiFile />
@@ -92,7 +92,7 @@ export default function Home() {
             </p>
           )}
           <Progress
-            strokeColor="skyblue"
+            strokeColor="green"
             className="w-inherit flex justify-center mt-12"
             type="dashboard"
             percent={progress}
@@ -106,7 +106,7 @@ export default function Home() {
           <p className="text-sm">File has been uploaded. You can share it with the link below.</p>
           <div>
             <Link href={`/file/${uploadedFileId}`}>
-              <a className="hover:underline text-sm ml-12 text-blue-500 hover:text-blue-500 text-md flex items-center gap-2 mt-3">
+              <a className="hover:underline text-sm ml-12 text-green-500 hover:text-green-600 text-md flex items-center gap-2 mt-3">
                 <IoOpenOutline size={15} />
                 {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
               </a>
@@ -118,14 +118,18 @@ export default function Home() {
 
             <section className="flex justify-center items-center gap-3">
               <Button
-                type="primary"
+                type="ghost"
                 onClick={copyLinkToClipboard}
-                className="flex text-sm items-center gap-2 bg-blue-500"
+                className="flex items-center gap-2 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
               >
                 <IoReaderOutline size={18} />
                 Copy link
               </Button>
-              <Button onClick={() => setUploadedFileId("")} className="flex text-sm items-center gap-2">
+              <Button
+                onClick={() => setUploadedFileId("")}
+                type="ghost"
+                className="flex items-center gap-2 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+              >
                 <IoArrowUpCircleOutline size={18} />
                 Upload another
               </Button>
