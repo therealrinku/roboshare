@@ -63,13 +63,13 @@ export default function FileDownloadPage({ title, image }: Props) {
           </p>
           {fileData?.fileLocation && (
             <a
-              className="mt-5 text-sm text-blue-500 flex items-center gap-3 text-md hover:text-blue-700 hover:cursor-pointer hover:underline"
+              className="text-sm text-green-500 flex items-center gap-2 text-md hover:text-green-600 hover:cursor-pointer hover:underline"
               target="_blank"
               rel="noreferrer"
               href={fileData?.fileLocation}
               download={fileData?.fileName}
             >
-              <FiExternalLink size={18} />
+              <FiExternalLink size={16} />
               <p>{fileData?.fileName}</p>
             </a>
           )}

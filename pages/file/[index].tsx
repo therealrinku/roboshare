@@ -26,18 +26,18 @@ export default function FileDownloadPage({ fileData }: Props) {
 
         {fileData?.fileLocation && (
           <a
-            className="mt-5 flex items-center text-sm text-blue-500 flex items-center gap-3 text-md hover:text-blue-700 hover:cursor-pointer hover:underline"
+            className="mt-5 flex items-center text-sm text-blue-500 flex items-center gap-2 text-md hover:text-blue-700 hover:cursor-pointer hover:underline"
             target="_blank"
             rel="noreferrer"
             href={fileData?.fileLocation}
             download={fileData?.fileName}
           >
-            <FiExternalLink className="mb-3" size={18} />
+            <FiExternalLink className="mb-3" size={17} />
             <p>{fileData?.fileName}</p>
           </a>
         )}
 
-        <Button type="primary" className="text-sm mt-5 bg-blue-500" onClick={() => router.push("/download")}>
+        <Button type="ghost" className="rounded-none text-white text-sm mt-5 bg-green-500 hover:bg-green-600" onClick={() => router.push("/download")}>
           Download Another File
         </Button>
       </div>
