@@ -1,20 +1,21 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Fragment } from "react";
 import { IoArrowUpCircleOutline, IoOpenOutline, IoReaderOutline } from "react-icons/io5";
 import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
-import { Button, message } from "antd";
 import { FiFile } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import Loader from "../components/Loader";
 import { MdLibraryAddCheck } from "react-icons/md";
+import Message from "../components/Message";
 
 export default function Home() {
   const [uploadedFileId, setUploadedFileId] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile]: any = useState();
+  const [message, setMessage] = useState("");
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const file = acceptedFiles[0];
@@ -31,7 +32,7 @@ export default function Home() {
           const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           setProgress(progress);
         },
-        (error) => message.error(error.message),
+        (error) => setMessage(error.message),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             const data = {
@@ -55,7 +56,7 @@ export default function Home() {
         }
       );
     } catch (err: any) {
-      message.error(err.message);
+      setMessage(err.message);
       setUploading(false);
     }
   }, []);
@@ -64,11 +65,11 @@ export default function Home() {
 
   const copyLinkToClipboard = () => {
     navigator.clipboard.writeText(window.location.origin + `/file/${uploadedFileId}`);
-    message.success("Copied Url");
+    setMessage("Copied Url");
   };
 
   return (
-    <div>
+    <Fragment>
       {/* step1: upload view */}
       {!uploadedFileId && !uploading && (
         <div
@@ -100,7 +101,7 @@ export default function Home() {
       {uploadedFileId && (
         <div className="flex flex-col min-h-60 py-10 items-center justify-center">
           <MdLibraryAddCheck size={50} className="mb-3" />
-          <p className="text-sm">
+          <p className="text-sm flex justify-center flex-col items-center">
             File has been uploaded successfully.
             <Link href={`/file/${uploadedFileId}`}>
               <a className="hover:underline text-sm text-green-500 hover:text-green-600 text-md flex items-center gap-1">
@@ -112,7 +113,7 @@ export default function Home() {
 
           <div>
             <div className="my-10 flex justify-center">
-              <QRCode value={`https://roboshare.vercel.app/file/${uploadedFileId}`} />
+              <QRCode value={`https://roboshare.vercel.app/download?file_id=${uploadedFileId}`} />
             </div>
 
             <section className="flex justify-center items-center gap-3 mt-20">
@@ -135,6 +136,8 @@ export default function Home() {
           </div>
         </div>
       )}
-    </div>
+
+      <Message message={message} />
+    </Fragment>
   );
 }
