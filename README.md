@@ -34,8 +34,6 @@ To run this project locally, follow these steps:
    yarn install
    
 3. Get your firebase app config and add to firebase.js file at the root directory
-   ```bash
-   yarn install
 
 4. Run the project.
    ```bash
