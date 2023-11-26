@@ -1,4 +1,4 @@
-# RoboShare
+# Roboshare
 
 RoboShare is a simple file uploading and sharing platform focused on easy file sharing through generated links.
 
