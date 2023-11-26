@@ -1,18 +1,14 @@
 import { useState, useCallback } from "react";
-import {
-  IoFolderOpenOutline,
-  IoArrowUpCircleOutline,
-  IoHappyOutline,
-  IoOpenOutline,
-  IoReaderOutline,
-} from "react-icons/io5";
+import { IoArrowUpCircleOutline, IoOpenOutline, IoReaderOutline } from "react-icons/io5";
 import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
-import { Button, message, Progress } from "antd";
+import { Button, message } from "antd";
 import { FiFile } from "react-icons/fi";
 import QRCode from "react-qr-code";
+import Loader from "../components/Loader";
+import { MdLibraryAddCheck } from "react-icons/md";
 
 export default function Home() {
   const [uploadedFileId, setUploadedFileId] = useState("");
@@ -73,66 +69,68 @@ export default function Home() {
 
   return (
     <div>
+      {/* step1: upload view */}
       {!uploadedFileId && !uploading && (
-        <div {...getRootProps()} className="flex flex-col min-h-60 max-w-screen-lg py-32 items-center  justify-center">
-          <IoFolderOpenOutline size={50} className="mb-3" />
+        <div
+          {...getRootProps()}
+          className="flex h-full flex-col min-h-60 max-w-screen-lg py-32 items-center  justify-center"
+        >
+          <FiFile size={50} className="mb-3" />
           <input {...getInputProps()} />
           <span className="text-sm flex gap-1 mt-5">
-            <p className="text-green-500 hover:cursor-pointer">Browse</p> or drop file here.
+            <p className="text-green-500 hover:cursor-pointer">Open</p> or drop file here.
           </span>
         </div>
       )}
 
+      {/* step2: upload progress view */}
       {uploading && (
         <div className="flex flex-col min-h-60 py-32 items-center justify-center">
           {selectedFile && (
-            <p className="flex gap-2 items-center">
+            <p className="flex gap-2 items-center text-sm">
               <FiFile />
               {selectedFile?.name}
             </p>
           )}
-          <Progress
-            strokeColor="green"
-            className="w-inherit flex justify-center mt-12"
-            type="dashboard"
-            percent={progress}
-          />
+          <Loader progress={progress} />
         </div>
       )}
 
+      {/* step3: upload success view */}
       {uploadedFileId && (
         <div className="flex flex-col min-h-60 py-10 items-center justify-center">
-          <IoHappyOutline size={50} className="mb-3" />
-          <p className="text-sm">File has been uploaded. You can share it with the link below.</p>
-          <div>
+          <MdLibraryAddCheck size={50} className="mb-3" />
+          <p className="text-sm">
+            File has been uploaded successfully.
             <Link href={`/file/${uploadedFileId}`}>
-              <a className="hover:underline text-sm ml-12 text-green-500 hover:text-green-600 text-md flex items-center gap-2 mt-3">
-                <IoOpenOutline size={15} />
+              <a className="hover:underline text-sm text-green-500 hover:text-green-600 text-md flex items-center gap-1">
+                <IoOpenOutline />
                 {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
               </a>
             </Link>
+          </p>
 
+          <div>
             <div className="my-10 flex justify-center">
-              <QRCode value={`https://arcshare.vercel.app/file/${uploadedFileId}`} />
+              <QRCode value={`https://roboshare.vercel.app/file/${uploadedFileId}`} />
             </div>
 
-            <section className="flex justify-center items-center gap-3">
-              <Button
-                type="ghost"
+            <section className="flex justify-center items-center gap-3 mt-20">
+              <button
                 onClick={copyLinkToClipboard}
-                className="flex items-center gap-2 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+                className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
               >
                 <IoReaderOutline size={18} />
                 Copy link
-              </Button>
-              <Button
+              </button>
+
+              <button
                 onClick={() => setUploadedFileId("")}
-                type="ghost"
-                className="flex items-center gap-2 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+                className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
               >
                 <IoArrowUpCircleOutline size={18} />
-                Upload another
-              </Button>
+                Upload another file
+              </button>
             </section>
           </div>
         </div>

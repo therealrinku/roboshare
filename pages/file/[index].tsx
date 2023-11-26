@@ -51,7 +51,7 @@ export default function FileDownloadPage({ fileData }: Props) {
 
 export const getServerSideProps = async (context: any) => {
   const fileId = context.params.index;
-  const apiUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://arcshare.vercel.app";
+  const apiUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://Roboshare.vercel.app";
   const data = await fetch(`${apiUrl}/api/getFile/${fileId}`).then((res) => res.json());
 
   return {

@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Homepage | Arcshare</title>
+        <title>Homepage | Roboshare</title>
         <meta title="description" content="Share files instantly with Ar3share" />
         <meta title="og:description" content="Share files instantly with Ar3share" />
 
