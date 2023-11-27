@@ -106,7 +106,7 @@ export default function Home() {
             <Link href={`/file/${uploadedFileId}`}>
               <a className="hover:underline text-sm text-green-500 hover:text-green-600 text-md flex items-center gap-1">
                 <IoOpenOutline />
-                {typeof window !== "undefined" ? window?.origin + "/file/" + uploadedFileId : " "}
+                {typeof window !== "undefined" ? window?.origin + `/download?file_id=${uploadedFileId}` : " "}
               </a>
             </Link>
           </p>

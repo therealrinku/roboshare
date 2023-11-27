@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Fragment, useState } from "react";
-import { FiExternalLink, FiFile } from "react-icons/fi";
+import { FiExternalLink } from "react-icons/fi";
 import { MdDownload, MdDownloading, MdOutlineFileDownloadDone } from "react-icons/md";
 import { apiUrl } from "../constants";
 import QRCode from "react-qr-code";
@@ -78,7 +78,7 @@ export default function FileDownloadPage({ fetchedFileData }: Props) {
           </Head>
 
           <div className="flex flex-col min-h-60 py-32 items-center justify-center ">
-            <FiFile size={50} />
+            <p className="text-sm">Your file is ready!</p>
 
             <div className="my-5 flex justify-center">
               <QRCode value={fileUrl} />
