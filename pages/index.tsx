@@ -4,10 +4,10 @@ import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
 import Link from "next/link";
-import { FiFile } from "react-icons/fi";
+import { FiFile, FiHardDrive } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import Loader from "../components/Loader";
-import { MdLibraryAddCheck } from "react-icons/md";
+import { MdLibraryAddCheck, MdOutlineQrCodeScanner } from "react-icons/md";
 import Message from "../components/Message";
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile]: any = useState();
   const [message, setMessage] = useState("");
+  const [showQR, setShowQR] = useState(false);
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const file = acceptedFiles[0];
@@ -64,8 +65,8 @@ export default function Home() {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const copyLinkToClipboard = () => {
-    navigator.clipboard.writeText(window.location.origin + `/file/${uploadedFileId}`);
-    setMessage("Copied Url");
+    navigator.clipboard.writeText(window.location.origin + `/download?file_id=${uploadedFileId}`);
+    setMessage("Copied file link successfully");
   };
 
   return (
@@ -99,24 +100,12 @@ export default function Home() {
 
       {/* step3: upload success view */}
       {uploadedFileId && (
-        <div className="flex flex-col min-h-60 py-10 items-center justify-center">
-          <MdLibraryAddCheck size={50} className="mb-3" />
-          <p className="text-sm flex justify-center flex-col items-center">
-            File has been uploaded successfully.
-            <Link href={`/file/${uploadedFileId}`}>
-              <a className="hover:underline text-sm text-green-500 hover:text-green-600 text-md flex items-center gap-1">
-                <IoOpenOutline />
-                {typeof window !== "undefined" ? window?.origin + `/download?file_id=${uploadedFileId}` : " "}
-              </a>
-            </Link>
-          </p>
+        <div className="flex flex-col py-10 items-center ">
+          <FiHardDrive size={50} />
+          <p className="mt-5 mb-7 text-sm">File has been uploaded successfully.</p>
 
-          <div>
-            <div className="my-10 flex justify-center">
-              <QRCode value={`https://roboshare.vercel.app/download?file_id=${uploadedFileId}`} />
-            </div>
-
-            <section className="flex justify-center items-center gap-3 mt-20">
+          <section className="flex justify-center items-center gap-3">
+            <div className="flex items-center">
               <button
                 onClick={copyLinkToClipboard}
                 className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
@@ -124,16 +113,28 @@ export default function Home() {
                 <IoReaderOutline size={18} />
                 Copy link
               </button>
-
               <button
-                onClick={() => setUploadedFileId("")}
-                className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+                onClick={() => setShowQR((prev) => !prev)}
+                className="flex px-3 border-l py-[6px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
               >
-                <IoArrowUpCircleOutline size={18} />
-                Upload another file
+                <MdOutlineQrCodeScanner size={18} />
               </button>
-            </section>
-          </div>
+            </div>
+
+            <button
+              onClick={() => setUploadedFileId("")}
+              className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+            >
+              <IoArrowUpCircleOutline size={18} />
+              Upload another file
+            </button>
+          </section>
+
+          {showQR && (
+            <div className="my-10 flex justify-center">
+              <QRCode value={`https://roboshare.vercel.app/download?file_id=${uploadedFileId}`} />
+            </div>
+          )}
         </div>
       )}
 

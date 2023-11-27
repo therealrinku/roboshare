@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { Fragment, useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
-import { MdDownload, MdDownloading, MdOutlineFileDownloadDone } from "react-icons/md";
+import { MdDownload, MdDownloading, MdOutlineFileDownloadDone, MdOutlineQrCodeScanner } from "react-icons/md";
 import { apiUrl } from "../constants";
 import QRCode from "react-qr-code";
+import { IoArrowUpCircleOutline, IoReaderOutline } from "react-icons/io5";
 
 async function fetchFile(fileId: string) {
   if (!fileId) {
@@ -25,6 +26,7 @@ export default function FileDownloadPage({ fetchedFileData }: Props) {
   const [fileUrl, setFileUrl] = useState("");
   const [fetching, setFetching] = useState(false);
   const [fileData, setFileData]: any = useState(fetchedFileData);
+  const [showQR, setShowQR] = useState(false);
 
   async function getFile() {
     const fileId = fileUrl.slice(fileUrl.indexOf("?"))?.split("=")?.[1];
@@ -77,23 +79,30 @@ export default function FileDownloadPage({ fetchedFileData }: Props) {
             <title>{fileData.fileName}</title>
           </Head>
 
-          <div className="flex flex-col min-h-60 py-32 items-center justify-center ">
+          <div className="flex flex-col items-center gap-2">
             <p className="text-sm">Your file is ready!</p>
 
-            <div className="my-5 flex justify-center">
-              <QRCode value={fileUrl} />
+            <div className="flex items-center">
+              <button
+                onClick={() => window.open(fileData.fileLocation, "_blank")}
+                className="flex px-4 py-[5px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+              >
+                <IoReaderOutline size={18} />
+                Open file
+              </button>
+              <button
+                onClick={() => setShowQR((prev) => !prev)}
+                className="flex px-3 border-l py-[6px] items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white font-inherit rounded-none"
+              >
+                <MdOutlineQrCodeScanner size={18} />
+              </button>
             </div>
 
-            <a
-              className="mt-5 flex items-center text-sm text-green-500 flex items-center gap-2 text-md hover:text-green-600 hover:cursor-pointer hover:underline"
-              target="_blank"
-              rel="noreferrer"
-              href={fileData.fileLocation}
-              download={fileData.fileName}
-            >
-              <FiExternalLink className="mb-4" size={16} />
-              <p className="max-w-[300px] truncate">{fileData.fileName}</p>
-            </a>
+            {showQR && (
+              <div className="mt-6">
+                <QRCode value={window.location.toString()} />
+              </div>
+            )}
           </div>
         </Fragment>
       )}
