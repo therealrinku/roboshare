@@ -1,13 +1,12 @@
 import { useState, useCallback, Fragment } from "react";
-import { IoArrowUpCircleOutline, IoOpenOutline, IoReaderOutline } from "react-icons/io5";
+import { IoArrowUpCircleOutline, IoReaderOutline } from "react-icons/io5";
 import { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
-import Link from "next/link";
 import { FiFile, FiHardDrive } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import Loader from "../components/Loader";
-import { MdLibraryAddCheck, MdOutlineQrCodeScanner } from "react-icons/md";
+import { MdOutlineQrCodeScanner } from "react-icons/md";
 import Message from "../components/Message";
 
 export default function Home() {
@@ -104,7 +103,7 @@ export default function Home() {
           <FiHardDrive size={50} />
           <p className="mt-5 mb-7 text-sm">File has been uploaded successfully.</p>
 
-          <section className="flex justify-center items-center gap-3">
+          <section className="flex flex-col md:flex-row justify-center items-center gap-3">
             <div className="flex items-center">
               <button
                 onClick={copyLinkToClipboard}

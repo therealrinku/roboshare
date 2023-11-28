@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { Fragment, useState } from "react";
-import { FiExternalLink } from "react-icons/fi";
 import { MdDownload, MdDownloading, MdOutlineFileDownloadDone, MdOutlineQrCodeScanner } from "react-icons/md";
 import { apiUrl } from "../constants";
 import QRCode from "react-qr-code";
-import { IoArrowUpCircleOutline, IoReaderOutline } from "react-icons/io5";
+import { IoReaderOutline } from "react-icons/io5";
 
 async function fetchFile(fileId: string) {
   if (!fileId) {
@@ -20,15 +19,18 @@ interface Props {
     fileLocation: string;
     fileName: string;
   };
+  isFileIdInvalid: Boolean;
 }
 
-export default function FileDownloadPage({ fetchedFileData }: Props) {
+export default function FileDownloadPage({ fetchedFileData, isFileIdInvalid }: Props) {
   const [fileUrl, setFileUrl] = useState("");
   const [fetching, setFetching] = useState(false);
   const [fileData, setFileData]: any = useState(fetchedFileData);
   const [showQR, setShowQR] = useState(false);
+  const [invalidFileId, setInvalidFileId] = useState(isFileIdInvalid);
 
   async function getFile() {
+    setInvalidFileId(false);
     const fileId = fileUrl.slice(fileUrl.indexOf("?"))?.split("=")?.[1];
     setFetching(true);
     const fileData = await fetchFile(fileId);
@@ -46,7 +48,13 @@ export default function FileDownloadPage({ fetchedFileData }: Props) {
             <title>Download | Roboshare</title>
           </Head>
 
-          <div className="flex min-h-60 py-32 items-center justify-center">
+          {invalidFileId && (
+            <p className="text-sm text-center text-red-500">
+              Your link was invalid. <br /> Check the link and try entering it below.
+            </p>
+          )}
+
+          <div className="flex mt-3 items-center justify-center">
             <input
               value={fileUrl}
               onChange={(e) => setFileUrl(e.target.value)}
@@ -58,7 +66,7 @@ export default function FileDownloadPage({ fetchedFileData }: Props) {
             <button
               onClick={getFile}
               disabled={!fileUrl.trim() || fetching}
-              className="flex px-3 justify-center py-[6.4px] items-center gap-1 text-sm bg-green-500 :not-disabled:hover:bg-green-600 text-white font-inherit rounded-none"
+              className="flex px-3 justify-center py-[6.49px] items-center gap-1 text-sm bg-green-500 :not-disabled:hover:bg-green-600 text-white font-inherit rounded-none"
             >
               {fetching ? (
                 <MdDownloading size={18} />
@@ -117,7 +125,8 @@ export const getServerSideProps = async (context: any) => {
 
   return {
     props: {
-      fetchedFileData: data,
+      fetchedFileData: data?.fileName ? data : null,
+      isFileIdInvalid: file_id && !data.fileName,
     },
   };
 };
